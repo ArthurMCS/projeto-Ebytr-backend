@@ -1,24 +1,23 @@
 const taskModel = require('../models/TaskModel')
 
 const getAll = async () => {
-    try {
-        const tasks = await taskModel.getAll();
-    } catch (error) {
-        return error
-    }
+    const tasks = await taskModel.getAll();
+    return tasks
 };
 
 const add = async (newTask) => {
-    console.log(newTask);
-   try {
-        const task = await taskModel.add(newTask)
-        return task
-   } catch (error) {
-       return error
-   }
+    if(!newTask) return undefined; 
+    const task = await taskModel.add(newTask)
+    return task
 };
+
+const exclude = async (id) => {
+    const task = await taskModel.exclude(id)
+    return task
+}
 
 module.exports = {
     getAll,
     add,
+    exclude
 }
