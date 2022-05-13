@@ -24,8 +24,21 @@ const exclude = async (id) => {
   return undefined;
 };
 
+const update = async (id, task) => {
+  const tasks = await getAll();
+  const deletedTask = tasks.find((t) => t.id === id);
+  if (!deletedTask) return undefined;
+  const [result] = await connection
+    .execute(
+      'UPDATE tasks SET task = ? WHERE id = ?',
+      [task, id],
+    );
+  return result;
+};
+
 module.exports = {
   getAll,
   add,
   exclude,
+  update,
 };
